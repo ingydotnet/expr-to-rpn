@@ -1,0 +1,33 @@
+###
+# This Pegex grammar defines simple infix mathematical expressions.
+###
+
+# An expression is a sequence of operands separated by operators:
+
+expression: operand+ %% operator -
+
+# Basic mathematical operators:
+operator: /-
+  (
+    PLUS |    # '+' for addition
+    DASH |    # '-' for subtraction
+    STAR |    # '*' for multiplication
+    SLASH |   # '/' for division
+    CARET     # '^' for exponentiation
+  )
+/
+
+# An operand is a number or a parenthesized expression:
+operand:
+  | number
+  | - LPAREN expression - RPAREN
+
+# Positive or negative integer
+number: /-
+  (
+    DASH?
+    DIGIT+
+  )
+/
+
+# Note that the '-' character matches 0 or more whitespace characters.
