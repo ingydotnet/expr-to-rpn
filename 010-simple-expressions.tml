@@ -1,0 +1,35 @@
+#!/usr/bin/env testml
+
+*expr.compile == *rpn
+  :"+ -- {*expr}"
+
+
+=== Simplest
+--- expr: 3 + 4
+--- rpn: 3 4 +
+
+
+=== No whitespace
+--- expr: 3+4
+--- ^rpn
+
+
+=== Parens
+--- expr: (3 + 4)
+--- ^rpn
+
+
+=== More Parens
+--- expr: (((3) + (4)))
+--- ^rpn
+
+
+=== Single operand
+--- expr: 42
+--- rpn: 42
+
+
+=== Precedence
+--- ONLY
+--- expr: (2 + 3) * 4
+--- rpn: 2 3 4 * +
